@@ -5,7 +5,7 @@
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](#)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](#)
 
-> Personal developer portfolio built for **Md. Golam Morshed** — M.Tech Scholar in Computer Science & Engineering specializing in Machine Learning, Systems Architecture, and Data Science.
+> Personal developer portfolio built by **Md. Golam Morshed** — M.Tech Scholar in Computer Science & Engineering specializing in Machine Learning, Systems Architecture, and Data Science.
 
 ---
 
