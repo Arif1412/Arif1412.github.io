@@ -38,7 +38,7 @@ Check out the live interactive website here:
 ## 👨‍💻 About Me
 
 * 🎓 **Education:** M.Tech in Computer Science & Engineering at Netaji Subhash Engineering College (MAKAUT)
-* 💡 **Primary Focus:** Machine Learning, Python, SQL, Relational Databases, Cybersecurity, and Operating Systems
+* 💡 **Primary Focus:** Machine Learning, Python, SQL, Relational Databases, Cybersecurity and Operating Systems
 * 🛠️ **Featured Project:** *Duplicate Question Pair Detection System* (Applied NLP & Machine Learning)
 
 ---
