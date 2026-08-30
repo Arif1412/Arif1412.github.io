@@ -47,7 +47,7 @@ Check out the live interactive website here:
 
 * **Portfolio:** [arif1412.github.io](https://arif1412.github.io)
 * **GitHub:** [@Arif1412](https://github.com/Arif1412)
-* **LinkedIn:** [Md. Golam Morshed](https://www.linkedin.com)
+* **LinkedIn:** [Md. Golam Morshed]([https://www.linkedin.com](https://www.linkedin.com/in/md-golam-morshed-227183277/))
 
 ---
 
