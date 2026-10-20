@@ -1,620 +1,764 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Md. Golam Morshed - Portfolio</title>
-  <body id="top">
-  <style>
-    :root {
-      --bg-color: #0b0f19;
-      --card-bg: #151c2c;
-      --card-hover: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.35);
-      --border-color: rgba(255, 255, 255, 0.08);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Golam Morshed | Software Engineer & ML Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0b0d',
+                        cardBg: '#121215',
+                        cardHoverBg: '#18181c',
+                        borderCol: '#222228',
+                        borderHover: '#3b3b45',
+                        accentGlow: 'rgba(255, 255, 255, 0.08)',
+                    },
+                    boxShadow: {
+                        'glow-sm': '0 0 15px rgba(255, 255, 255, 0.05)',
+                        'glow-md': '0 0 25px rgba(255, 255, 255, 0.08)',
+                        'glow-card': '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0b0d;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
 
-    /* Smooth Scroll */
-    html {
-      scroll-behavior: smooth;
-    }
+        /* Glassmorphism subtle effects */
+        .glass-card {
+            background: rgba(18, 18, 21, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+        .glass-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 255, 255, 0.06);
+        }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+        /* Nav link hover underline animation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+        /* Continuous skill ticker animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 30s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
 
-    /* Keyframe Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        /* Skill pill interactive hover styling */
+        .skill-pill {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-pill:hover {
+            transform: translateY(-3px) scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            background-color: #1e1e24;
+            color: #ffffff;
+        }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px var(--accent-glow); }
-      50% { box-shadow: 0 0 30px var(--accent-glow); }
-    }
-
-    /* Navigation */
-    header {
-      padding: 1.2rem 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(11, 15, 25, 0.85);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      color: var(--text-main);
-      transition: color 0.3s ease;
-    }
-
-    .logo span { color: var(--accent); }
-    .logo:hover { color: var(--accent); }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 2.5rem;
-    }
-
-    nav a {
-      font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      position: relative;
-      padding-bottom: 4px;
-      transition: color 0.3s ease;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--text-main);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0 10%;
-      text-align: center;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      padding: 0.4rem 1.2rem;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid var(--accent-glow);
-      color: var(--accent);
-      border-radius: 30px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-    }
-     .hero h1 {
-      font-size: 4rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      letter-spacing: -1px;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      padding: 0.9rem 2.2rem;
-      background: var(--accent);
-      color: #0b0f19;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px var(--accent-glow);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      box-shadow: none;
-      margin-left: 1rem;
-    }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 4px 20px var(--accent-glow);
-    }
-
-    /* Sections Shared */
-    section {
-      padding: 6rem 10%;
-    }
-
-    .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 3.5rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 50px;
-      height: 3px;
-      background: var(--accent);
-      margin: 12px auto 0;
-      border-radius: 2px;
-    }
-
-    /* About Section */
-    .about-content {
-      display: flex;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    .about-img-container {
-      flex: 1;
-      min-width: 280px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .about-img-wrapper {
-      position: relative;
-      border-radius: 20px;
-      padding: 8px;
-      background: linear-gradient(135deg, var(--accent), transparent);
-      animation: pulseGlow 4s infinite ease-in-out;
-    }
-
-    .about-img-wrapper img {
-      width: 280px;
-      height: 350px;
-      object-fit: cover;
-      border-radius: 16px;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .about-img-wrapper:hover img {
-      transform: scale(1.03);
-    }
-
-    .about-text {
-      flex: 2;
-    }
-
-    .about-text h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1.2rem;
-      line-height: 1.4;
-    }
-
-    .about-text p {
-      color: var(--text-muted);
-      margin-bottom: 1.8rem;
-      font-size: 1.05rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .social-links a {
-      padding: 0.6rem 1.4rem;
-      background: var(--card-bg);
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .social-links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-3px);
-      background: var(--card-hover);
-    }
-
-    /* Timeline Section (Education & Experience) */
-    .timeline-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .timeline-card {
-      background: var(--card-bg);
-      padding: 2.2rem;
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      top: 0;
-    }
-
-    .timeline-card:hover {
-      top: -8px;
-      border-color: rgba(56, 189, 248, 0.4);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      background: var(--card-hover);
-    }
-
-    .timeline-card h3 {
-      color: var(--accent);
-      font-size: 1.25rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .timeline-card span {
-      display: block;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 0.88rem;
-    }
-
-    .timeline-card p {
-      color: #cbd5e1;
-      font-size: 0.98rem;
-    }
-
-    /* Tech Stack */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-category {
-      background: var(--card-bg);
-      padding: 2.2rem;
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .skill-category:hover {
-      border-color: rgba(56, 189, 248, 0.3);
-      transform: translateY(-5px);
-    }
-
-    .skill-category h3 {
-      margin-bottom: 1.5rem;
-      color: var(--accent);
-      font-size: 1.2rem;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-    }
-
-    .skill-tag {
-      background: rgba(56, 189, 248, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .skill-tag:hover {
-      background: var(--accent);
-      color: #0b0f19;
-      transform: scale(1.05);
-      cursor: default;
-    }
-
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--border-color);
-      overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px);
-      border-color: var(--accent);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px var(--accent-glow);
-    }
-
-    .project-info {
-      padding: 2.2rem;
-    }
-
-    .project-info h3 {
-      font-size: 1.35rem;
-      margin-bottom: 0.8rem;
-      transition: color 0.3s ease;
-    }
-
-    .project-card:hover .project-info h3 {
-      color: var(--accent);
-    }
-
-    .project-info p {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
-      font-size: 0.98rem;
-    }
-
-    .project-links a {
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.95rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      transition: gap 0.3s ease;
-    }
-
-    .project-links a:hover {
-      gap: 10px;
-    }
-
-    /* Contact */
-    .contact-section {
-      text-align: center;
-      background: linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg) 100%);
-      border-radius: 20px;
-      border: 1px solid var(--border-color);
-      margin-bottom: 4rem;
-    }
-
-    .contact-section p {
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      font-size: 1.15rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      header { padding: 1.2rem 5%; }
-      nav ul { gap: 1.2rem; }
-      .hero h1 { font-size: 2.8rem; }
-      .about-content { flex-direction: column; text-align: center; }
-      .social-links { justify-content: center; }
-      .btn-outline { margin-left: 0; margin-top: 1rem; }
-    }
-  </style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0b0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222228;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b3b45;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-darkBg text-gray-100 selection:bg-neutral-700 selection:text-white">
 
-  <header>
-    <a href="#top" class="logo">MGM<span>.</span></a>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#tech-stack">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Ambient Subtle Glow Background Background -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <div class="fixed bottom-1/3 right-1/4 w-96 h-96 bg-white/[0.015] rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-  <section class="hero">
-    <div class="hero-tag">Software Engineer</div>
-     <h1>Hi, I'm <span>Md. Golam Morshed</span></h1>
-    <p>M.Tech Scholar specializing in Machine Learning, Systems Architecture and Software Development.</p>
-    <div>
-      <a href="#projects" class="btn">View My Work</a>
-      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0b0d]/85 backdrop-blur-md border-b border-borderCol/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-xl font-bold tracking-wider text-white flex items-center gap-3 group">
+                <span class="bg-neutral-800 group-hover:bg-white group-hover:text-black text-white px-3 py-1 rounded-lg text-sm border border-neutral-700 transition-all duration-300 font-mono shadow-sm">MGM</span>
+                <span class="hidden sm:inline font-bold tracking-tight text-neutral-200 group-hover:text-white transition-colors">Md Golam Morshed</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+                <a href="#about" class="nav-link hover:text-white transition-colors py-1">About Me</a>
+                <a href="#experience" class="nav-link hover:text-white transition-colors py-1">Experience</a>
+                <a href="#skills" class="nav-link hover:text-white transition-colors py-1">Skills</a>
+                <a href="#projects" class="nav-link hover:text-white transition-colors py-1">Projects</a>
+                <a href="#education" class="nav-link hover:text-white transition-colors py-1">Education & Certs</a>
+		</nav>
+
+            <div class="flex items-center gap-4">
+                <button onclick="openResumeModal()" class="flex items-center gap-2 bg-neutral-900 hover:bg-neutral-100 hover:text-black text-white text-sm font-medium px-4 py-2.5 rounded-xl border border-neutral-700/80 transition-all duration-300 hover:shadow-glow-sm hover:-translate-y-0.5 active:translate-y-0">
+                    <span>Resume</span>
+                    <i class="fa-solid fa-arrow-down text-xs transition-transform group-hover:translate-y-0.5"></i>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden text-neutral-400 hover:text-white text-xl p-2 rounded-lg hover:bg-neutral-800/50 transition-colors">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg/95 backdrop-blur-lg border-b border-borderCol px-6 py-4 space-y-3 text-sm">
+            <a href="#about" class="block text-neutral-300 hover:text-white py-2 border-b border-neutral-800/50">About Me</a>
+            <a href="#experience" class="block text-neutral-300 hover:text-white py-2 border-b border-neutral-800/50">Experience</a>
+            <a href="#skills" class="block text-neutral-300 hover:text-white py-2 border-b border-neutral-800/50">Skills</a>
+            <a href="#projects" class="block text-neutral-300 hover:text-white py-2 border-b border-neutral-800/50">Projects</a>
+            <a href="#education" class="block text-neutral-300 hover:text-white py-2">Education & Certs</a>
+        </div>
+    </header>
+
+    <!-- Hero Section ("About Me") -->
+    <section id="about" class="pt-32 pb-20 md:pt-40 md:pb-28 px-6 max-w-7xl mx-auto transition-all duration-300">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300 hover:border-neutral-700 hover:bg-neutral-800/60 transition-all duration-300 cursor-default">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Software Engineer & ML Specialist</span>
+                    <span class="text-neutral-500">•</span>
+                    <span class="text-neutral-400"><i class="fa-solid fa-location-dot text-[10px] mr-1"></i>Berhampore, WB</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    MD. GOLAM MORSHED
+                </h1>
+                
+                <p class="text-xl sm:text-2xl font-medium text-neutral-300">
+                    Software Engineer
+                </p>
+                
+                <p class="text-neutral-400 text-base sm:text-lg leading-relaxed max-w-2xl">
+                    I am a dedicated software engineer with a strong background in software development, data structures, algorithms, and system design. Experienced in building full-stack web applications and machine learning models using Java, Python, C++, and modern cloud databases.
+                </p>
+
+                <!-- Interactive Quick Stats -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 py-2 max-w-xl">
+                    <div class="glass-card p-3.5 rounded-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="text-xs text-neutral-400">Education</div>
+                        <div class="text-sm font-semibold text-white mt-0.5">MTech (NSEC)</div>
+                        <div class="text-[11px] text-neutral-500">2025 - 2027</div>
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl transition-all duration-300 hover:-translate-y-1">
+                        <div class="text-xs text-neutral-400">Undergrad</div>
+                        <div class="text-sm font-semibold text-white mt-0.5">BTech (FIT)</div>
+                        <div class="text-[11px] text-neutral-500">2021 - 2025</div>
+                    </div>
+                    <div class="glass-card p-3.5 rounded-xl transition-all duration-300 hover:-translate-y-1 col-span-2 sm:col-span-1">
+                        <div class="text-xs text-neutral-400">Core Focus</div>
+                        <div class="text-sm font-semibold text-white mt-0.5">ML & System Design</div>
+                        <div class="text-[11px] text-neutral-500">AI / Full-Stack</div>
+                    </div>
+                </div>
+
+                <!-- Contact & Social Links -->
+                <div class="flex items-center gap-4 pt-2">
+                    <a href="https://www.linkedin.com/in/md-golam-morshed-227183277/" target="_blank" class="glass-card w-11 h-11 rounded-xl flex items-center justify-center text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-sm group" title="LinkedIn Profile">
+                        <i class="fa-brands fa-linkedin-in text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="https://github.com/Arif1412" target="_blank" class="glass-card w-11 h-11 rounded-xl flex items-center justify-center text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-sm group" title="GitHub Repository">
+                        <i class="fa-brands fa-github text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="mailto:mdgolam.bhp@gmail.com" class="glass-card w-11 h-11 rounded-xl flex items-center justify-center text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-sm group" title="Email Contact">
+                        <i class="fa-solid fa-envelope text-lg group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="tel:+918327476215" class="glass-card px-4 h-11 rounded-xl flex items-center gap-2 text-xs font-medium text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-sm">
+                        <i class="fa-solid fa-phone text-xs"></i>
+                        <span>+91 8327476215</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Code Editor Box (Inspired by video) -->
+            <div class="lg:col-span-5">
+                <div class="glass-card rounded-2xl overflow-hidden transition-all duration-500 hover:border-neutral-600 hover:shadow-glow-card hover:-translate-y-2 group">
+                    <!-- Editor header -->
+                    <div class="bg-neutral-950/80 px-4 py-3 border-b border-borderCol flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500/80 group-hover:bg-red-500 transition-colors"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500/80 group-hover:bg-yellow-500 transition-colors"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500/80 group-hover:bg-green-500 transition-colors"></div>
+                        </div>
+                        <div class="text-xs text-neutral-400 code-font flex items-center gap-2">
+                            <i class="fa-regular fa-file-code text-neutral-500"></i>
+                            developer_profile.js
+                        </div>
+                        <span class="text-[10px] code-font text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded">
+                            active
+                        </span>
+                    </div>
+                    
+                    <!-- Editor code content -->
+                    <div class="p-5 code-font text-xs sm:text-sm overflow-x-auto leading-relaxed text-neutral-300 bg-black/40">
+                        <div class="text-neutral-500 mb-2">// Developer Profile Configuration</div>
+                        <div><span class="text-purple-400">const</span> developer = {</div>
+                        <div class="pl-4"><span class="text-blue-300">name</span>: <span class="text-emerald-400">"MD. GOLAM MORSHED"</span>,</div>
+                        <div class="pl-4"><span class="text-blue-300">location</span>: <span class="text-emerald-400">"Berhampore, WB"</span>,</div>
+                        <div class="pl-4"><span class="text-blue-300">degree</span>: <span class="text-emerald-400">"MTECH - CSE (NSEC)"</span>,</div>
+                        <div class="pl-4"><span class="text-blue-300">skills</span>: [</div>
+                        <div class="pl-8"><span class="text-emerald-400">"Python"</span>, <span class="text-emerald-400">"Java"</span>, <span class="text-emerald-400">"C++"</span>,</div>
+                        <div class="pl-8"><span class="text-emerald-400">"Machine Learning"</span>, <span class="text-emerald-400">"FastAPI"</span></div>
+                        <div class="pl-4">],</div>
+                        <div class="pl-4"><span class="text-blue-300">contact</span>: <span class="text-emerald-400">"mdgolam.bhp@gmail.com"</span>,</div>
+                        <div class="pl-4"><span class="text-blue-300">phone</span>: <span class="text-emerald-400">"+91 8327476215"</span></div>
+                        <div>};</div>
+                        <div class="mt-3 text-neutral-500">// Output candidate status</div>
+                        <div><span class="text-purple-400">console</span>.log(developer.name + <span class="text-emerald-400">" is ready to build!"</span>);</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Skills Ticker Section (Horizontal Interactive Infinite Scroll) -->
+    <section id="skills" class="py-16 border-t border-borderCol bg-neutral-950/40 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-1">Skills & Technical Expertise</h2>
+                <p class="text-neutral-400 text-sm">Languages, frameworks, developer tools, and core disciplines.</p>
+            </div>
+            <span class="text-xs text-neutral-500 hidden sm:inline-block"><i class="fa-solid fa-arrows-left-right mr-1"></i> Interactive pills</span>
+        </div>
+
+        <!-- Scrolling Ticker Container -->
+        <div class="relative w-full overflow-hidden py-4">
+            <!-- Left & Right Fade Gradients -->
+            <div class="absolute top-0 bottom-0 left-0 w-16 bg-gradient-to-r from-darkBg to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute top-0 bottom-0 right-0 w-16 bg-gradient-to-l from-darkBg to-transparent z-10 pointer-events-none"></div>
+
+            <div class="animate-marquee flex gap-3 px-4">
+                <!-- Skill Pills Batch 1 -->
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-python text-yellow-400"></i> Python
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-java text-orange-400"></i> Java
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-code text-blue-400"></i> C++
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-database text-cyan-400"></i> SQL / MySQL
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-brain text-purple-400"></i> Machine Learning
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-robot text-emerald-400"></i> Artificial Intelligence
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-diagram-project text-pink-400"></i> DSA & Algorithms
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-cubes text-indigo-400"></i> OOP Principles
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-shield-halved text-red-400"></i> Cybersecurity
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-git-alt text-orange-500"></i> Git & GitHub
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-laptop-code text-blue-300"></i> VS Code
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-chart-simple text-amber-400"></i> Kaggle
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-file-excel text-emerald-500"></i> MS Excel
+                </span>
+
+                <!-- Duplicate Batch for Seamless Loop -->
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-python text-yellow-400"></i> Python
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-java text-orange-400"></i> Java
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-code text-blue-400"></i> C++
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-database text-cyan-400"></i> SQL / MySQL
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-brain text-purple-400"></i> Machine Learning
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-robot text-emerald-400"></i> Artificial Intelligence
+                </span>
+                <span class="skill-pill glass-card px-4 py-2 rounded-xl text-xs sm:text-sm font-medium text-neutral-300 border border-borderCol flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-diagram-project text-pink-400"></i> DSA & Algorithms
+                </span>
+            </div>
+        </div>
+
+        <!-- Categorized Grid View -->
+        <div class="max-w-7xl mx-auto px-6 mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass-card p-6 rounded-2xl space-y-4 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500">
+                <div class="flex items-center gap-3 text-white">
+                    <div class="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-code text-neutral-300"></i>
+                    </div>
+                    <h3 class="font-bold text-base">Languages</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Python</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Java</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">C++</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">SQL</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">HTML / CSS</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl space-y-4 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500">
+                <div class="flex items-center gap-3 text-white">
+                    <div class="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-brain text-neutral-300"></i>
+                    </div>
+                    <h3 class="font-bold text-base">Technical Skills</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Machine Learning</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Artificial Intelligence</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">DSA</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">OOP</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">DBMS</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Cybersecurity</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl space-y-4 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500">
+                <div class="flex items-center gap-3 text-white">
+                    <div class="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-wrench text-neutral-300"></i>
+                    </div>
+                    <h3 class="font-bold text-base">Tools & DB</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">VS Code</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">MySQL</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Git</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Kaggle</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">MS Excel</span>
+                </div>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl space-y-4 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500">
+                <div class="flex items-center gap-3 text-white">
+                    <div class="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-xs">
+                        <i class="fa-solid fa-users text-neutral-300"></i>
+                    </div>
+                    <h3 class="font-bold text-base">Soft Skills</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Leadership</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Critical Thinking</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Flexibility</span>
+                    <span class="skill-pill px-3 py-1.5 rounded-lg bg-neutral-900/90 border border-neutral-800 text-xs text-neutral-300">Time Management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-6 max-w-7xl mx-auto border-t border-borderCol">
+        <div class="space-y-10">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">Work Experience</h2>
+                <p class="text-neutral-400 text-sm">Professional internships and hands-on industrial projects.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <!-- Experience Card 1 -->
+                <div class="md:col-span-8 glass-card rounded-2xl p-7 transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500 hover:shadow-glow-card group">
+                    <div class="space-y-5">
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div>
+                                <span class="text-xs font-semibold px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-700/80 group-hover:border-neutral-500 transition-colors">
+                                    Full-time Internship
+                                </span>
+                                <h3 class="text-2xl font-bold text-white mt-3 group-hover:text-emerald-400 transition-colors">Technical Internship</h3>
+                                <p class="text-neutral-300 font-medium text-base">Ardent Computech Pvt Ltd</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:border-neutral-600 transition-all shadow-sm">
+                                <i class="fa-solid fa-laptop-code text-lg"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-xs text-neutral-400 flex flex-wrap items-center gap-3 border-y border-neutral-800/80 py-2.5">
+                            <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar"></i> Feb 2024 - April 2024</span>
+                            <span class="text-neutral-600">•</span>
+                            <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot"></i> Kolkata, West Bengal</span>
+                        </div>
+
+                        <ul class="space-y-3 text-sm text-neutral-300 leading-relaxed">
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-angle-right text-xs text-neutral-500 mt-1"></i>
+                                <span>Developed a full-stack product-based e-commerce platform with 20+ responsive product pages, secure authentication, shopping cart, and payment workflow.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fa-solid fa-angle-right text-xs text-neutral-500 mt-1"></i>
+                                <span>Built REST APIs for product catalog, user profile, and order processing with full CRUD functionality and error handling.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Info Side-Card -->
+                <div class="md:col-span-4 glass-card rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-neutral-500">
+                    <div class="space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Development Philosophy</h3>
+                        <p class="text-neutral-400 text-xs leading-relaxed">
+                            Focusing on writing scalable, clean code, optimizing data structure efficiency, and implementing reliable backend architecture for web and AI platforms.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-neutral-800/80 flex items-center justify-between text-xs text-neutral-400">
+                        <span>Team Collaboration</span>
+                        <span class="text-emerald-400 font-mono"><i class="fa-solid fa-check text-[10px] mr-1"></i>Proven</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-6 max-w-7xl mx-auto border-t border-borderCol">
+        <div class="space-y-12">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">Featured Projects</h2>
+                <p class="text-neutral-400 text-sm">Machine learning models, full-stack applications, and backend RESTful architectures.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Project Card 1 -->
+                <div class="glass-card rounded-2xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:border-neutral-400 hover:shadow-glow-card group">
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-800 group-hover:border-neutral-600 transition-colors">
+                                ML / NLP / Fast API
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:scale-110 transition-all">
+                                <i class="fa-solid fa-brain text-sm"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                            Duplicate Question Pair Detection
+                        </h3>
+
+                        <p class="text-neutral-400 text-sm leading-relaxed">
+                            A machine learning-based approach to detect duplicate question pairs using a Random Forest classifier. The model is trained on a publicly available dataset and leverages engineered features such as textual similarity metrics to determine semantic equivalence between question pairs. Deployed using FastAPI as the backend server, exposing an API for real-time predictions.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">Python</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">Random Forest</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">FastAPI</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">Text Similarity Metrics</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-neutral-800/80 flex items-center justify-between">
+                        <span class="text-xs text-neutral-500 font-mono">NLP Architecture</span>
+                        <a href="https://github.com/Arif1412/quora-duplicate-question-detection" target="_blank" class="text-xs text-white group-hover:translate-x-1 transition-transform flex items-center gap-1 font-medium hover:text-emerald-400">
+    Team Lead Project <i class="fa-solid fa-arrow-right text-[10px]"></i>
+</a>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="glass-card rounded-2xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:border-neutral-400 hover:shadow-glow-card group">
+                    <div class="space-y-5">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-borderCol group-hover:border-neutral-600 transition-colors">
+                                .NET / SQL Cloud / Full Stack
+                            </span>
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-white group-hover:scale-110 transition-all">
+                                <i class="fa-solid fa-store text-sm"></i>
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">
+                            Hutch - Full Stack E-Commerce Platform
+                        </h3>
+
+                        <p class="text-neutral-400 text-sm leading-relaxed">
+                            Hutch is a product-based e-commerce platform designed to offer customers a seamless and personalized online shopping experience. Built with Microsoft .NET and SQL Server Cloud Based, incorporating advanced functionalities such as dynamic product filtration, search auto-suggestion, and image uploading directly to the database.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">Microsoft .NET</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">SQL Server Cloud</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">C#</span>
+                            <span class="skill-pill text-xs px-3 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300">Auto-Suggest Search</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-neutral-800/80 flex items-center justify-between">
+                        <span class="text-xs text-neutral-500 font-mono">Cloud Solution</span>
+                        <span class="text-xs text-white group-hover:translate-x-1 transition-transform flex items-center gap-1 font-medium">
+                            Cloud Database <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Certifications Section -->
+    <section id="education" class="py-20 px-6 max-w-7xl mx-auto border-t border-borderCol">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            
+            <!-- Education -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">Education</h2>
+                    <p class="text-neutral-400 text-sm">Academic degrees and institutional studies.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass-card rounded-2xl p-6 space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 group">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-white text-lg group-hover:text-emerald-400 transition-colors">Master of Technology (MTECH)</h3>
+                            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-800">Expected 2027</span>
+                        </div>
+                        <p class="text-neutral-300 text-sm font-medium">Netaji Subhash Engineering College</p>
+                        <p class="text-neutral-400 text-xs">Computer Science and Engineering</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 space-y-3 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 group">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-white text-lg group-hover:text-emerald-400 transition-colors">Bachelor of Technology (BTECH)</h3>
+                            <span class="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-neutral-900 text-neutral-300 border border-neutral-800">2021 - 2025</span>
+                        </div>
+                        <p class="text-neutral-300 text-sm font-medium">Future Institute of Technology</p>
+                        <p class="text-neutral-400 text-xs">Computer Science and Engineering</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications & Leadership -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-2">Certifications & Leadership</h2>
+                    <p class="text-neutral-400 text-sm">Professional certifications and team coordination.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Cert 1 -->
+                    <div class="glass-card rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white group-hover:border-neutral-600 transition-colors shrink-0">
+                                <i class="fa-solid fa-shield-halved text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 transition-colors">Google Cybersecurity Professional Certification</h3>
+                                <p class="text-neutral-400 text-xs mt-0.5">Google Professional Certification</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cert 2 -->
+                    <div class="glass-card rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white group-hover:border-neutral-600 transition-colors shrink-0">
+                                <i class="fa-solid fa-robot text-sm"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 transition-colors">AI for Business Professionals</h3>
+                                <p class="text-neutral-400 text-xs mt-0.5">HP Certification</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leadership -->
+                    <div class="glass-card rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-500 group">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white group-hover:border-neutral-600 transition-colors shrink-0 mt-0.5">
+                                <i class="fa-solid fa-users text-sm"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 transition-colors">NLP Project Lead (5 Members)</h3>
+                                <p class="text-neutral-400 text-xs leading-relaxed">
+                                    Led a team of 5 members in developing an NLP-based duplicate question detection model. Delivered full project documentation, presentations, and coordinated all team milestones.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 max-w-7xl mx-auto border-t border-borderCol flex flex-col sm:flex-row items-center justify-between gap-6 text-sm text-neutral-400">
+        <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Copyright © 2026 Md. Golam Morshed. All Rights Reserved.</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="https://www.linkedin.com/in/md-golam-morshed-227183277/" target="_blank" class="hover:text-white transition-colors">LinkedIn</a>
+            <a href="https://github.com/Arif1412" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+            <a href="mailto:mdgolam.bhp@gmail.com" class="hover:text-white transition-colors">Email</a>
+        </div>
+    </footer>
+
+    <!-- Interactive Resume Preview Modal -->
+    <div id="resume-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 transition-all duration-300">
+        <div class="glass-card rounded-2xl max-w-2xl w-full p-6 sm:p-8 space-y-6 relative shadow-2xl border border-neutral-700 animate-in fade-in zoom-in-95 duration-200">
+            <button onclick="closeResumeModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white p-2 rounded-lg hover:bg-neutral-800/60 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white font-bold text-lg font-mono">
+                    GM
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">MD. GOLAM MORSHED</h3>
+                    <p class="text-xs text-neutral-400 font-mono mt-0.5">+91 8327476215 | mdgolam.bhp@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="bg-neutral-950/80 border border-neutral-800 rounded-xl p-5 max-h-96 overflow-y-auto space-y-4 text-xs text-neutral-300 leading-relaxed font-sans">
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-1 border-b border-neutral-800 pb-1">OBJECTIVE</h4>
+                    <p class="text-neutral-400">Dedicated software engineer with a strong background in software development, data structures, algorithms, and system design. Practical knowledge in Java, Python, C++, web tech, and databases.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-1 border-b border-neutral-800 pb-1">EDUCATION</h4>
+                    <p class="text-neutral-200 font-semibold">Master of Technology (MTECH) - CSE</p>
+                    <p class="text-neutral-400 mb-1">Netaji Subhash Engineering College (2025-2027)</p>
+                    <p class="text-neutral-200 font-semibold">Bachelor of Technology (BTECH) - CSE</p>
+                    <p class="text-neutral-400">Future Institute of Technology (2021-2025)</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-1 border-b border-neutral-800 pb-1">EXPERIENCE</h4>
+                    <p class="text-neutral-200 font-semibold">Technical Internship - Ardent Computech Pvt Ltd</p>
+                    <p class="text-neutral-400">Feb 2024 - Apr 2024 (Kolkata, WB)</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white uppercase tracking-wider mb-1 border-b border-neutral-800 pb-1">CERTIFICATIONS</h4>
+                    <p class="text-neutral-400">• Google Cybersecurity Professional Certification</p>
+                    <p class="text-neutral-400">• AI for Business Professionals (HP)</p>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeResumeModal()" class="px-5 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-sm transition-all border border-neutral-700">
+                    Close
+                </button>
+                <a href="resume.pdf" download="MD_Golam_Morshed_Resume.pdf" class="px-5 py-2.5 rounded-lg bg-white text-black text-sm font-semibold hover:bg-neutral-200 transition-colors inline-flex items-center gap-2">
+    <i class="fas fa-download"></i> Download PDF
+</a>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <section id="about">
-    <div class="about-content">
-      <div class="about-img-container">
-        <div class="about-img-wrapper">
-          <img src="profile.jpg" alt="Md. Golam Morshed">
-        </div>
-      </div>
-      <div class="about-text">
-        <h2>Building intelligent applications & robust data-driven solutions.</h2>
-        <p>Currently pursuing my M.Tech in Computer Science and Engineering at Netaji Subhash Engineering College. I specialize in solving complex algorithmic challenges using Python and SQL, focusing on machine learning, cybersecurity and advanced operating systems.</p>
-        <div class="social-links">
-          <a href="https://www.linkedin.com/in/md-golam-morshed-227183277/" target="_blank">LinkedIn</a>
-          <a href="mailto:mdgolam.bhp@gmail.com">Email Me</a>
-          <a href="https://github.com/Arif1412" target="_blank">GitHub</a>
-        </div>
-       <a href="resume.pdf" class="btn" target="_blank">View Resume</a>
-      </div>
-    </div>
-  </section>
+    <!-- JavaScript Interactions -->
+    <script>
+        // Mobile Menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-  <section id="experience">
-    <h2 class="section-title">Experience & Education</h2>
-    <div class="timeline-grid">
-      <div class="timeline-card">
-        <h3>Intern</h3>
-        <span>Ardent Computech Pvt Ltd</span>
-        <p>Developed a full-stack product-based e-commerce platform with 20+ responsive product pages, secure
-authentication, shopping cart and payment workflow.Built REST APIs for product catalog, user profile, and order processing with CRUD functionality.</p>
-      </div>
-      <div class="timeline-card">
-        <h3>M.Tech – Computer Science & Engineering</h3>
-        <span>Netaji Subhash Engineering College</span>
-        <p>Specializing in Advanced Operating Systems, Soft Computing, Relational Databases, Machine Learning and Artificial Intelligence.</p>
-      </div>
-      <div class="timeline-card">
-        <h3>Certifications</h3>
-        <span>Professional Milestones</span>
-        <p>Google Cybersecurity Professional Certificate</p>
-		<p>HP AI for Business Professionals</p>
-		<p>Mastercard Cybersecurity Analyst</p>
-		<p>TATA Cybersecurity Analyst</p>
-		<p>Deloitte Data Analytics Certificate</p>
-		<p>Deloitte Cybersecurity Analyst Certificate</p>
-      </div>
-    </div>
-  </section>
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
 
-  <section id="tech-stack">
-    <h2 class="section-title">Technical Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-category">
-        <h3>Languages & Databases</h3>
-        <div class="skill-list">
-          <span class="skill-tag">Python</span>
-          <span class="skill-tag">SQL</span>
-          <span class="skill-tag">Java</span>
-	  <span class="skill-tag">C++</span>
-	  <span class="skill-tag">HTML</span>
-	  <span class="skill-tag">CSS</span> 
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>AI & Machine Learning</h3>
-        <div class="skill-list">
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">Soft Computing</span>
-          <span class="skill-tag">Artificial Intelligence</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <h3>Core Computer Science</h3>
-        <div class="skill-list">
-          <span class="skill-tag">Advanced Operating Systems</span>
-          <span class="skill-tag">Database Management Systems</span>
-          <span class="skill-tag">Object Oriented Programming</span>
-        </div>
-      </div>
-    </div>
-  </section>
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
 
-  <section id="projects">
-    <h2 class="section-title">Featured Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-info">
-          <h3>Cancer Biomarker Identification using Causal ML</h3>
-          <p>A 3-stage hybrid causal feature selection framework combining mutual-information filtering, conditional-independence local skeleton constraints and continuous neural graph optimization to discover disease biomarkers from high-dimensional RNA-Seq datasets.</p>
-          <div class="skill-list" style="margin-bottom: 1.5rem;">
-            <span class="skill-tag">Machine Learning</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">DAG-GNN</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/Arif1412/causal-biomarker-discovery" target="_blank">View Project Repository &rarr;</a>
-          </div>
-        </div>
-      </div>
-    </div>
-      <div class="project-card">
-        <div class="project-info">
-          <h3>Duplicate Question Pair Detection</h3>
-          <p>An applied machine learning system designed to detect and flag semantically identical questions, optimizing search efficiency and database cleanliness.</p>
-          <div class="skill-list" style="margin-bottom: 1.5rem;">
-            <span class="skill-tag">Machine Learning</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">NLP</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/Arif1412/quora-duplicate-question-detection" target="_blank">View Project Repository &rarr;</a>
-          </div>
-        </div>
-      </div>
-  </section>
-  </section>
+        // Resume Modal logic
+        function openResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
 
-  <section id="contact" class="contact-section">
-    <h2 class="section-title">Get In Touch</h2>
-    <p>I'm open to discussing software engineering roles, Machine Learning research, and technical collaborations.</p>
-    <a href="mailto:mdgolam.bhp@gmail.com" class="btn">Say Hello</a>
-  </section>
+        function closeResumeModal() {
+            const modal = document.getElementById('resume-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
 
+        function downloadResumeSim(e) {
+            const btn = e.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check text-xs"></i><span>Downloading...</span>';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fa-solid fa-circle-check text-xs"></i><span>Saved!</span>';
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    closeResumeModal();
+                }, 1000);
+            }, 800);
+        }
+
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('resume-modal');
+            if (e.target === modal) {
+                closeResumeModal();
+            }
+        });
+    </script>
 </body>
 </html>
